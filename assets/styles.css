@@ -1,0 +1,14 @@
+.chat{
+  position: absolute;
+  left:60%;
+  top:3%;
+}
+
+#messages{
+  overflow-y: scroll;
+  height:600px;
+}
+
+ul {
+  list-style-type: none;
+}

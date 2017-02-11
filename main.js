@@ -9,6 +9,28 @@ navigator.getUserMedia({video: true, audio: true}, function(stream){
     stream: stream
   })
 
+  document.getElementById('send').addEventListener('click', function(){
+    var yourMessage = document.getElementById('yourMessage').value
+    peer.send(yourMessage)
+    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
+    document.getElementById('yourMessage').value = ''
+    var objDiv = document.getElementById("messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  })
+
+  document.getElementById('yourMessage').addEventListener('keypress', function(e){
+    var key = e.which || e.keyCode;
+    if (key === 13) {
+    var yourMessage = document.getElementById('yourMessage').value
+    peer.send(yourMessage)
+    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
+    document.getElementById('yourMessage').value = ''
+    var objDiv = document.getElementById("messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
+  })
+
+
   socket.on('firstId', function(data){
     peer.signal(data.id)
    })
@@ -17,9 +39,13 @@ navigator.getUserMedia({video: true, audio: true}, function(stream){
     socket.emit('mainId', JSON.stringify(data))
   })
 
+  peer.on('data', function(data){
+    document.getElementById('messages').innerHTML += '<li><b>' + 'Guest: ' + data + '</b></li>'
+  })
+
   peer.on('stream', function(stream){
     var video = document.createElement('video')
-    document.body.appendChild(video)
+    document.getElementById('video').appendChild(video)
     video.src = window.URL.createObjectURL(stream)
     video.play()
   })
