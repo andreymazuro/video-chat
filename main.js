@@ -1,5 +1,21 @@
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
+
+if (navigator.getUserMedia) {
+    navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
+}
+
+function handleVideo(stream) {
+  var video = document.getElementById('videoElement')
+  video.src = window.URL.createObjectURL(stream)
+}
+
+function videoError(e) {
+    // do something
+}
+
+
+
 navigator.getUserMedia({video: true, audio: true}, function(stream){
   var socket = io();
   var Peer = require('simple-peer')
@@ -14,6 +30,9 @@ iceServers: [
     stream: stream,
     config:  servers ,
   })
+
+
+
 
   document.getElementById('send').addEventListener('click', function(){
     var yourMessage = document.getElementById('yourMessage').value

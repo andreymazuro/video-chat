@@ -17,5 +17,9 @@ ul {
   background-color: #F6F6FD;
   border:1px solid black;
 
+}
 
+#videoElement{
+    height:200px;
+    width:200px;
 }
