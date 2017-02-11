@@ -6,7 +6,8 @@ navigator.getUserMedia({video: true, audio: true}, function(stream){
   var peer = new Peer({
     initiator: location.hash === '#init',
     trickle: false,
-    stream: stream
+    stream: stream,
+    config: { iceServers: [ { url: 'stun:stun.l.google.com:19302' } ] },
   })
 
   document.getElementById('send').addEventListener('click', function(){
