@@ -1,0 +1,17 @@
+{
+  "name": "myvideochat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify main.js -o assets/bundle.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "nodemon": "^1.11.0",
+    "simple-peer": "^6.2.2",
+    "socket.io": "^1.7.2"
+  }
+}
