@@ -4,49 +4,16 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 navigator.getUserMedia({video: true, audio: true}, function(stream){
   var socket = io();
   var Peer = require('simple-peer')
+  var servers = {
+iceServers: [
+     {  url: "stun:stun.l.google.com:19302"}
+    ]
+};
   var peer = new Peer({
     initiator: location.hash === '#init',
     trickle: false,
     stream: stream,
-    config: { iceServers: [ {  url: "stun:stun.l.google.com:19302"
-  ,
-    url: "stun.l.google.com:19302"
-  ,
-    url: "stun1.l.google.com:19302"
-  ,
-    url: "stun2.l.google.com:19302"
-  ,
-    url: "stun3.l.google.com:19302"
-  ,
-    url: "stun4.l.google.com:19302"
-  ,
-    url: "stun01.sipphone.com"
-  ,
-    url: "stun.ekiga.net"
-  ,
-    url: "stun.fwdnet.net"
-  ,
-    url: "stun.ideasip.com"
-  ,
-    url: "stun.iptel.org"
-  ,
-    url: "stun.rixtelecom.se"
-  ,
-    url: "stun.schlund.de"
-  ,
-    url: "stunserver.org"
-  ,
-    url: "stun.softjoys.com"
-  ,
-    url: "stun.voiparound.com"
-  ,
-    url: "stun.voipbuster.com"
-  ,
-    url: "stun.voipstunt.com"
-  ,
-    url: "stun.voxgratia.org"
-  ,
-    url: "stun.xten.com" } ] },
+    config:  servers ,
   })
 
   document.getElementById('send').addEventListener('click', function(){
@@ -315,8 +282,8 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-}).call(this,{"isBuffer":require("../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":27}],4:[function(require,module,exports){
+}).call(this,{"isBuffer":require("../../../../../../../usr/local/lib/node_modules/watchify/node_modules/is-buffer/index.js")})
+},{"../../../../../../../usr/local/lib/node_modules/watchify/node_modules/is-buffer/index.js":27}],4:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
