@@ -26,21 +26,18 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function() {
     console.log('user disconnected')
-    if (count !== 0) {   count-- }
-    if (count == 0) { users = []}
+    count--
+    users = []
   })
 
     socket.on('mainId', function(data){
     users.push(data)
-
     if (count == 2 && users[1] == undefined) {
       socket.broadcast.emit('firstId', {id:users[0]})
     }
 
     if (users.length == 2) {
        socket.broadcast.emit('firstId', {id:users[1]})
-       users = []
-       count = 0
     }
     })
 
