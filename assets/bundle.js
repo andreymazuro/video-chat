@@ -2,6 +2,7 @@
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 
+
 if (navigator.getUserMedia) {
     navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
 }
@@ -12,9 +13,8 @@ function handleVideo(stream) {
 }
 
 function videoError(e) {
-    // do something
+    console.log(e)
 }
-
 
 
 navigator.getUserMedia({video: true, audio: true}, function(stream){
@@ -44,14 +44,14 @@ iceServers: [
 }
     ]
 };
+
+socket.on('initiator', function(data){
   var peer = new Peer({
-    initiator: location.hash === '#init',
+    initiator: data.init,
     trickle: false,
     stream: stream,
     config:  servers ,
   })
-
-
 
 
   document.getElementById('send').addEventListener('click', function(){
@@ -75,7 +75,6 @@ iceServers: [
   }
   })
 
-
   socket.on('firstId', function(data){
     peer.signal(data.id)
    })
@@ -87,13 +86,15 @@ iceServers: [
   peer.on('data', function(data){
     document.getElementById('messages').innerHTML += '<li><b>' + 'Guest: ' + data + '</b></li>'
   })
-
   peer.on('stream', function(stream){
     var video = document.createElement('video')
     document.getElementById('video').appendChild(video)
     video.src = window.URL.createObjectURL(stream)
     video.play()
   })
+})
+
+
 }, function(err) {
   console.error(err)
 })

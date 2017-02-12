@@ -17,6 +17,13 @@ var count = 0
 io.on('connection', function(socket){
   console.log('user connected')
   count++
+
+  if (count == 1) {
+    socket.emit('initiator', {init: true})
+  } else if (count == 2) {
+    socket.emit('initiator', {init: false})
+  }
+
   socket.on('disconnect', function() {
     console.log('user disconnected')
     if (count !== 0) {   count-- }
