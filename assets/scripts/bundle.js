@@ -3723,7 +3723,7 @@ iceServers: [
 
 socket.emit('url', window.location.href.split('/')[3])
 
-document.getElementById('welcome').innerHTML = 'Welcome to room: ' + window.location.href.split('/')[3] 
+document.getElementById('welcome').innerHTML = 'Welcome to room: ' + window.location.href.split('/')[3]
 
 socket.on('initiator', function(data){
   var peer = new Peer({
@@ -3756,6 +3756,7 @@ socket.on('initiator', function(data){
   })
 
   socket.on('firstId', function(data){
+    console.log('firstId')
     peer.signal(data.id)
    })
 

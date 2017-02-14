@@ -23,17 +23,31 @@ io.on('connection', function(socket){
   console.log('user connected')
 
 
+  io.sockets.emit('rooms', {rooms: komn})
+
+
   socket.on('newRoom', function(data){
     komn.push(data)
-  })
-
-  setTimeout(function(){
-    console.log('adsa')
     io.sockets.emit('rooms', {rooms: komn})
-  }, 17000);
+  })
 
 
   socket.on('url', function(data){
+
+    socket.on('disconnect', function(){
+      var roomname = data
+      delete rooms[roomname]
+      delete count[roomname]
+      komn.map(function(item,index){
+        if (item == roomname){
+          komn.splice(index,1)
+        }
+      })
+      io.sockets.emit('rooms', {rooms: komn})
+
+    })
+
+
     socket.join(data);
     if (!count[data]) {
       count[data] = [1]
@@ -42,30 +56,25 @@ io.on('connection', function(socket){
     }
 
 
-    if (!rooms[data]) {
+    if (count[data] == 1) {
       socket.emit('initiator', {init: true})
     } else {
       socket.emit('initiator', {init: false})
     }
 
     if (count[data] == 2) {
-      if (rooms[data] == undefined) {
-        console.log('ushol odichalyj')
+      if (rooms[data] !== undefined) {
+        socket.emit('firstId', {id:rooms[data][0]})
       }
-        else {
-      socket.emit('firstId', {id:rooms[data][0]})
     }
-    }
+
 
 })
-    //
-    // socket.on('disconnect', function() {
-    //   console.log('user disconnected')
-    //   count--
-    //   users = []
-    // })
+
+
 
   socket.on('mainId', function(id){
+
     var roomname = id[0]
     var signal = id[1]
       if (rooms[roomname]) {
@@ -74,8 +83,12 @@ io.on('connection', function(socket){
         rooms[roomname] = [signal]
       }
 
+      if (rooms[roomname].length == 1 && count[roomname] == 2){
+        socket.in(roomname).broadcast.emit('firstId', {id:rooms[roomname][0]})
+      }
+
+
       if (rooms[roomname].length == 2) {
-        console.log('123')
          socket.in(roomname).broadcast.emit('firstId', {id:rooms[roomname][1]})
          komn.map(function(item,index){
            if (item == roomname){
