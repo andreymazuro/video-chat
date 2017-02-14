@@ -1,105 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-
-
-if (navigator.getUserMedia) {
-    navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
-}
-
-function handleVideo(stream) {
-  var video = document.getElementById('videoElement')
-  video.src = window.URL.createObjectURL(stream)
-}
-
-function videoError(e) {
-    console.log(e)
-}
-
-
-navigator.getUserMedia({video: true, audio: true}, function(stream){
-  var socket = io();
-  var Peer = require('simple-peer')
-  var servers = {
-iceServers: [
-  {url:'stun:stun01.sipphone.com'},
-{url:'stun:stun.ekiga.net'},
-{url:'stun:stun.fwdnet.net'},
-{url:'stun:stun.ideasip.com'},
-{url:'stun:stun.iptel.org'},
-{url:'stun:stun2.l.google.com:19302'},
-{url:'stun:stun3.l.google.com:19302'},
-{url:'stun:stun4.l.google.com:19302'},
-{url:'stun:stunserver.org'},
-{url:'stun:stun.softjoys.com'},
-{url:'stun:stun.voiparound.com'},
-{url:'stun:stun.voipbuster.com'},
-{url:'stun:stun.voipstunt.com'},
-{url:'stun:stun.voxgratia.org'},
-{url:'stun:stun.xten.com'},
-{
- url: 'turn:numb.viagenie.ca',
- credential: 'muazkh',
- username: 'webrtc@live.com'
-}
-    ]
-};
-
-socket.on('initiator', function(data){
-  var peer = new Peer({
-    initiator: data.init,
-    trickle: false,
-    stream: stream,
-    config:  servers ,
-  })
-
-
-  document.getElementById('send').addEventListener('click', function(){
-    var yourMessage = document.getElementById('yourMessage').value
-    peer.send(yourMessage)
-    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
-    document.getElementById('yourMessage').value = ''
-    var objDiv = document.getElementById("messages");
-    objDiv.scrollTop = objDiv.scrollHeight;
-  })
-
-  document.getElementById('yourMessage').addEventListener('keypress', function(e){
-    var key = e.which || e.keyCode;
-    if (key === 13) {
-    var yourMessage = document.getElementById('yourMessage').value
-    peer.send(yourMessage)
-    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
-    document.getElementById('yourMessage').value = ''
-    var objDiv = document.getElementById("messages");
-    objDiv.scrollTop = objDiv.scrollHeight;
-  }
-  })
-
-  socket.on('firstId', function(data){
-    peer.signal(data.id)
-   })
-
-  peer.on('signal', function(data){
-    socket.emit('mainId', JSON.stringify(data))
-  })
-
-  peer.on('data', function(data){
-    document.getElementById('messages').innerHTML += '<li><b>' + 'Guest: ' + data + '</b></li>'
-  })
-  peer.on('stream', function(stream){
-    var video = document.createElement('video')
-    document.getElementById('video').appendChild(video)
-    video.src = window.URL.createObjectURL(stream)
-    video.play()
-  })
-})
-
-
-}, function(err) {
-  console.error(err)
-})
-
-},{"simple-peer":19}],2:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -211,7 +110,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"buffer":24}],3:[function(require,module,exports){
+},{"buffer":24}],2:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -322,7 +221,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../../../../../../usr/local/lib/node_modules/watchify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../usr/local/lib/node_modules/watchify/node_modules/is-buffer/index.js":27}],4:[function(require,module,exports){
+},{"../../../../../../../usr/local/lib/node_modules/watchify/node_modules/is-buffer/index.js":27}],3:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -492,7 +391,7 @@ function localstorage(){
   } catch (e) {}
 }
 
-},{"./debug":5}],5:[function(require,module,exports){
+},{"./debug":4}],4:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -691,7 +590,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":9}],6:[function(require,module,exports){
+},{"ms":8}],5:[function(require,module,exports){
 // originally pulled out of simple-peer
 
 module.exports = function getBrowserRTC () {
@@ -708,7 +607,7 @@ module.exports = function getBrowserRTC () {
   return wrtc
 }
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -733,14 +632,14 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -867,7 +766,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -914,7 +813,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":29}],11:[function(require,module,exports){
+},{"_process":29}],10:[function(require,module,exports){
 (function (process,global,Buffer){
 'use strict'
 
@@ -954,7 +853,7 @@ function randomBytes (size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"_process":29,"buffer":24}],12:[function(require,module,exports){
+},{"_process":29,"buffer":24}],11:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -1030,7 +929,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":14,"./_stream_writable":16,"core-util-is":3,"inherits":7,"process-nextick-args":10}],13:[function(require,module,exports){
+},{"./_stream_readable":13,"./_stream_writable":15,"core-util-is":2,"inherits":6,"process-nextick-args":9}],12:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -1057,7 +956,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":15,"core-util-is":3,"inherits":7}],14:[function(require,module,exports){
+},{"./_stream_transform":14,"core-util-is":2,"inherits":6}],13:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2001,7 +1900,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":12,"./internal/streams/BufferList":17,"_process":29,"buffer":24,"buffer-shims":2,"core-util-is":3,"events":25,"inherits":7,"isarray":8,"process-nextick-args":10,"string_decoder/":20,"util":23}],15:[function(require,module,exports){
+},{"./_stream_duplex":11,"./internal/streams/BufferList":16,"_process":29,"buffer":24,"buffer-shims":1,"core-util-is":2,"events":25,"inherits":6,"isarray":7,"process-nextick-args":9,"string_decoder/":19,"util":23}],14:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -2184,7 +2083,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":12,"core-util-is":3,"inherits":7}],16:[function(require,module,exports){
+},{"./_stream_duplex":11,"core-util-is":2,"inherits":6}],15:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -2741,7 +2640,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":12,"_process":29,"buffer":24,"buffer-shims":2,"core-util-is":3,"events":25,"inherits":7,"process-nextick-args":10,"util-deprecate":21}],17:[function(require,module,exports){
+},{"./_stream_duplex":11,"_process":29,"buffer":24,"buffer-shims":1,"core-util-is":2,"events":25,"inherits":6,"process-nextick-args":9,"util-deprecate":20}],16:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -2806,7 +2705,7 @@ BufferList.prototype.concat = function (n) {
   }
   return ret;
 };
-},{"buffer":24,"buffer-shims":2}],18:[function(require,module,exports){
+},{"buffer":24,"buffer-shims":1}],17:[function(require,module,exports){
 (function (process){
 var Stream = (function (){
   try {
@@ -2826,7 +2725,7 @@ if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
 }
 
 }).call(this,require('_process'))
-},{"./lib/_stream_duplex.js":12,"./lib/_stream_passthrough.js":13,"./lib/_stream_readable.js":14,"./lib/_stream_transform.js":15,"./lib/_stream_writable.js":16,"_process":29}],19:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":11,"./lib/_stream_passthrough.js":12,"./lib/_stream_readable.js":13,"./lib/_stream_transform.js":14,"./lib/_stream_writable.js":15,"_process":29}],18:[function(require,module,exports){
 (function (Buffer){
 module.exports = Peer
 
@@ -3481,7 +3380,7 @@ Peer.prototype._debug = function () {
 function noop () {}
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":24,"debug":4,"get-browser-rtc":6,"inherits":7,"randombytes":11,"readable-stream":18}],20:[function(require,module,exports){
+},{"buffer":24,"debug":3,"get-browser-rtc":5,"inherits":6,"randombytes":10,"readable-stream":17}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3704,7 +3603,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":24}],21:[function(require,module,exports){
+},{"buffer":24}],20:[function(require,module,exports){
 (function (global){
 
 /**
@@ -3775,7 +3674,114 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+
+
+if (navigator.getUserMedia) {
+    navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
+}
+
+function handleVideo(stream) {
+  var video = document.getElementById('videoElement')
+  video.src = window.URL.createObjectURL(stream)
+}
+
+function videoError(e) {
+    console.log(e)
+}
+
+
+navigator.getUserMedia({video: true, audio: true}, function(stream){
+  var socket = io();
+  var Peer = require('simple-peer')
+  var servers = {
+iceServers: [
+  {url:'stun:stun01.sipphone.com'},
+{url:'stun:stun.ekiga.net'},
+{url:'stun:stun.fwdnet.net'},
+{url:'stun:stun.ideasip.com'},
+{url:'stun:stun.iptel.org'},
+{url:'stun:stun2.l.google.com:19302'},
+{url:'stun:stun3.l.google.com:19302'},
+{url:'stun:stun4.l.google.com:19302'},
+{url:'stun:stunserver.org'},
+{url:'stun:stun.softjoys.com'},
+{url:'stun:stun.voiparound.com'},
+{url:'stun:stun.voipbuster.com'},
+{url:'stun:stun.voipstunt.com'},
+{url:'stun:stun.voxgratia.org'},
+{url:'stun:stun.xten.com'},
+{
+ url: 'turn:numb.viagenie.ca',
+ credential: 'muazkh',
+ username: 'webrtc@live.com'
+}
+    ]
+};
+
+socket.emit('url', window.location.href.split('/')[3])
+
+
+
+socket.on('initiator', function(data){
+  var peer = new Peer({
+    initiator: data.init,
+    trickle: false,
+    stream: stream,
+    config:  servers ,
+  })
+
+
+  document.getElementById('send').addEventListener('click', function(){
+    var yourMessage = document.getElementById('yourMessage').value
+    peer.send(yourMessage)
+    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
+    document.getElementById('yourMessage').value = ''
+    var objDiv = document.getElementById("messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  })
+
+  document.getElementById('yourMessage').addEventListener('keypress', function(e){
+    var key = e.which || e.keyCode;
+    if (key === 13) {
+    var yourMessage = document.getElementById('yourMessage').value
+    peer.send(yourMessage)
+    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
+    document.getElementById('yourMessage').value = ''
+    var objDiv = document.getElementById("messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
+  })
+
+  socket.on('firstId', function(data){
+    peer.signal(data.id)
+   })
+
+  peer.on('signal', function(data){
+    var send = [window.location.href.split('/')[3], data]
+    socket.emit('mainId', send)
+  })
+
+  peer.on('data', function(data){
+    document.getElementById('messages').innerHTML += '<li><b>' + 'Guest: ' + data + '</b></li>'
+  })
+
+  peer.on('stream', function(stream){
+    var video = document.createElement('video')
+    document.getElementById('video').appendChild(video)
+    video.src = window.URL.createObjectURL(stream)
+    video.play()
+  })
+})
+
+
+}, function(err) {
+  console.error(err)
+})
+
+},{"simple-peer":18}],22:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -6100,8 +6106,8 @@ function isSlowBuffer (obj) {
 }
 
 },{}],28:[function(require,module,exports){
-arguments[4][8][0].apply(exports,arguments)
-},{"dup":8}],29:[function(require,module,exports){
+arguments[4][7][0].apply(exports,arguments)
+},{"dup":7}],29:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -6283,4 +6289,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[1]);
+},{}]},{},[21]);

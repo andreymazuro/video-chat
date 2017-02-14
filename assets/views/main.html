@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Welcome</title>
+  </head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/bundle1.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <body>
+      <h2>Welcome to videochat</h2>
+      <video autoplay="true" id="videoElement"></video>
+
+      <div>
+        <label>Create your room</label>
+        <input id="roomname"></label>
+        <button id="addroom">Add</button>
+      </div>
+
+      <div class="roomslist">
+        <label>Free rooms</label>
+        <ul id="roomslist"></ul>
+      </div>
+
+    </body>
+</html>

@@ -2,6 +2,8 @@
   position: absolute;
   left:60%;
   top:3%;
+  background-color: #F6F6FD;
+  border:1px solid black;
 }
 
 #messages{
@@ -13,11 +15,13 @@ ul {
   list-style-type: none;
 }
 
-.chat{
-  background-color: #F6F6FD;
-  border:1px solid black;
 
+.roomslist {
+  position: absolute;
+  right: 10%;
+  top: 3%;
 }
+
 
 #videoElement{
     height:200px;
