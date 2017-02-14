@@ -28,8 +28,9 @@ io.on('connection', function(socket){
   })
 
   setTimeout(function(){
+    console.log('adsa')
     io.sockets.emit('rooms', {rooms: komn})
-  }, 15000);
+  }, 17000);
 
 
   socket.on('url', function(data){
