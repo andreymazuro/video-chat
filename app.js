@@ -22,11 +22,14 @@ var komn = []
 io.on('connection', function(socket){
   console.log('user connected')
 
+
   socket.on('newRoom', function(data){
     komn.push(data)
   })
 
-  io.sockets.emit('rooms', {rooms: komn})
+  setTimeout(function(){
+    io.sockets.emit('rooms', {rooms: komn})
+  }, 15000);
 
 
   socket.on('url', function(data){
@@ -45,8 +48,12 @@ io.on('connection', function(socket){
     }
 
     if (count[data] == 2) {
-      console.log('3')
+      if (rooms[data] == undefined) {
+        console.log('ushol odichalyj')
+      }
+        else {
       socket.emit('firstId', {id:rooms[data][0]})
+    }
     }
 
 })
@@ -67,14 +74,15 @@ io.on('connection', function(socket){
       }
 
       if (rooms[roomname].length == 2) {
-        console.log('2')
+        console.log('123')
          socket.in(roomname).broadcast.emit('firstId', {id:rooms[roomname][1]})
-
          komn.map(function(item,index){
            if (item == roomname){
              komn.splice(index,1)
            }
          })
+         delete rooms[roomname]
+         delete count[roomname]
          io.sockets.emit('rooms', {rooms: komn})
       }
 
