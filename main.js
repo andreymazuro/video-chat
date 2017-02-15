@@ -21,11 +21,10 @@ socket.on('rooms', function(data){
   data.rooms.map(function(item){
     var roomslist = document.getElementById('roomslist')
     var room = document.createElement('li')
-    var name = document.createElement('b')
+    var name = document.createElement('a')
     name.innerHTML = item
-    room.addEventListener('click', function(){
-      window.location.href =  window.location.href + item
-    })
+    name.href = window.location.href + item
+    name.className = "list-group-item list-group-item-action list-group-item-success"
     room.appendChild(name)
     roomslist.appendChild(room)
   })

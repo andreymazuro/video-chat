@@ -2,22 +2,25 @@
 <html>
     <head><title>Welcome</title>
   </head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
     <script src="scripts/bundle1.js"></script>
     <link rel="stylesheet" href="styles.css">
     <body>
-      <h2>Welcome to videochat</h2>
+      <h3>Welcome to videochat</h3>
       <video autoplay="true" id="videoElement"></video>
-
       <div>
+        <h4>Please, join existing rooom, or create one yourself</h4>
+      <div class="form">
         <label>Create your room</label>
         <input id="roomname"></label>
-        <button id="addroom">Add</button>
+        <button id="addroom" type="button" class="btn btn-info">Add</button>
+      </div>
       </div>
 
       <div class="roomslist">
         <label>Free rooms</label>
-        <ul id="roomslist"></ul>
+        <ol id="roomslist"></ol>
       </div>
 
     </body>

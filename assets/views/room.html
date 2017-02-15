@@ -2,22 +2,24 @@
 <html>
     <head><title>Welcome</title>
   </head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
     <script src="scripts/bundle.js"></script>
     <link rel="stylesheet" href="styles.css">
     <body>
-      <h1 id="welcome">Welcome</h1>
-      <div id="video"></div>
+      <h3 id="welcome">Welcome</h3>
+      <div id="big-video"></div>
       <div id="your-video">
         <video autoplay="true" id="videoElement">
         </video>
       </div>
 
       <div class="chat">
-        <label>Enter message:</label><br/>
-        <input id="yourMessage"></input>
-        <button id="send">send</button>
         <ul id="messages"></ul>
+        <div class="botofchat">
+          <button  id="send" class="btn btn-success">Send</button>
+          <input id="yourMessage"></input>
+        </div>
       </div>
 
 

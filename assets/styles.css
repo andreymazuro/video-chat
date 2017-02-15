@@ -1,6 +1,41 @@
+a{
+  width:200px;
+}
+
+.botofchat{
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+b{
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+
+}
+
+#yourMessage{
+  width:85%;
+  height:30px;
+}
+
+.form{
+  margin-top: 30px;
+}
+
+h3{
+  margin-left: 30px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+h4{
+  margin-left: 30px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+}
+
 .chat{
   position: absolute;
-  left:60%;
+  right:5%;
+  width: 40%;
   top:3%;
   background-color: #F6F6FD;
   border:1px solid black;
@@ -8,22 +43,25 @@
 
 #messages{
   overflow-y: scroll;
-  height:600px;
+  height:500px;
 }
 
 ul {
   list-style-type: none;
 }
-
+  label{
+    margin-left: 50px;
+  }
 
 .roomslist {
   position: absolute;
-  right: 10%;
+  right: 5%;
   top: 3%;
 }
 
 
 #videoElement{
+    margin-left: 50px;
     height:200px;
     width:200px;
 }
