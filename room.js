@@ -7,7 +7,7 @@ if (navigator.getUserMedia) {
 }
 
 function handleVideo(stream) {
-  var video = document.getElementById('videoElement')
+  var video = document.getElementById('videoElementLittle')
   video.src = window.URL.createObjectURL(stream)
 }
 

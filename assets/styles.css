@@ -59,8 +59,17 @@ ul {
   top: 3%;
 }
 
+#big-video{
+  margin-left: 50px;
+
+}
 
 #videoElement{
+    margin-left: 50px;
+
+}
+
+#videoElementLittle{
     margin-left: 50px;
     height:200px;
     width:200px;
