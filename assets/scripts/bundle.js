@@ -3677,8 +3677,6 @@ function config (name) {
 },{}],21:[function(require,module,exports){
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-
-
 if (navigator.getUserMedia) {
     navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
 }

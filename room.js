@@ -1,7 +1,5 @@
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-
-
 if (navigator.getUserMedia) {
     navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
 }

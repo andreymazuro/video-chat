@@ -63,6 +63,12 @@ io.on('connection', function(socket){
     }
 
     if (count[data] == 2) {
+      komn.map(function(item,index){
+        if (item == data){
+          komn.splice(index,1)
+        }
+      })
+      io.sockets.emit('rooms', {rooms: komn})
       if (rooms[data] !== undefined) {
         socket.emit('firstId', {id:rooms[data][0]})
       }
@@ -90,14 +96,8 @@ io.on('connection', function(socket){
 
       if (rooms[roomname].length == 2) {
          socket.in(roomname).broadcast.emit('firstId', {id:rooms[roomname][1]})
-         komn.map(function(item,index){
-           if (item == roomname){
-             komn.splice(index,1)
-           }
-         })
          delete rooms[roomname]
          delete count[roomname]
-         io.sockets.emit('rooms', {rooms: komn})
       }
 
        })
