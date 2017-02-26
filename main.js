@@ -3,7 +3,7 @@ var socket = io();
 
 
 if (navigator.getUserMedia) {
-    navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
+  navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
 }
 
 function handleVideo(stream) {
@@ -43,10 +43,10 @@ window.onload=function(){
   document.getElementById('roomname').addEventListener('keypress', function(e){
     var key = e.which || e.keyCode;
     if (key === 13) {
-    var roomName = document.getElementById('roomname').value
-    window.location.href =  window.location.href + roomName
-    document.getElementById('roomname').value = ''
-    socket.emit('newRoom', roomName)
+      var roomName = document.getElementById('roomname').value
+      window.location.href =  window.location.href + roomName
+      document.getElementById('roomname').value = ''
+      socket.emit('newRoom', roomName)
     }
   })
 

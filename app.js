@@ -22,9 +22,7 @@ var komn = []
 io.on('connection', function(socket){
   console.log('user connected')
 
-
   io.sockets.emit('rooms', {rooms: komn})
-
 
   socket.on('newRoom', function(data){
     komn.push(data)
@@ -33,7 +31,6 @@ io.on('connection', function(socket){
 
 
   socket.on('url', function(data){
-
     socket.on('disconnect', function(){
       var roomname = data
       delete rooms[roomname]
@@ -44,7 +41,6 @@ io.on('connection', function(socket){
         }
       })
       io.sockets.emit('rooms', {rooms: komn})
-
     })
 
 
@@ -58,7 +54,9 @@ io.on('connection', function(socket){
 
     if (count[data] == 1) {
       socket.emit('initiator', {init: true})
-    } else {
+    }
+    else
+    {
       socket.emit('initiator', {init: false})
     }
 
@@ -73,19 +71,18 @@ io.on('connection', function(socket){
         socket.emit('firstId', {id:rooms[data][0]})
       }
     }
-
-
 })
 
 
 
   socket.on('mainId', function(id){
-
     var roomname = id[0]
     var signal = id[1]
       if (rooms[roomname]) {
         rooms[roomname].push(signal)
-      } else {
+      }
+      else
+      {
         rooms[roomname] = [signal]
       }
 
@@ -99,12 +96,9 @@ io.on('connection', function(socket){
          delete rooms[roomname]
          delete count[roomname]
       }
-
-       })
-
-
-
   })
+
+})
 
 
 var port = process.env.PORT || 3000;

@@ -67,18 +67,18 @@ socket.on('initiator', function(data){
   document.getElementById('yourMessage').addEventListener('keypress', function(e){
     var key = e.which || e.keyCode;
     if (key === 13) {
-    var yourMessage = document.getElementById('yourMessage').value
-    peer.send(yourMessage)
-    document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
-    document.getElementById('yourMessage').value = ''
-    var objDiv = document.getElementById("messages");
-    objDiv.scrollTop = objDiv.scrollHeight;
-  }
+      var yourMessage = document.getElementById('yourMessage').value
+      peer.send(yourMessage)
+      document.getElementById('messages').innerHTML += '<li><b>' + 'Me: ' + yourMessage + '</b></li>'
+      document.getElementById('yourMessage').value = ''
+      var objDiv = document.getElementById("messages");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
   })
 
   socket.on('firstId', function(data){
     peer.signal(data.id)
-   })
+  })
 
   peer.on('signal', function(data){
     var send = [window.location.href.split('/')[3], data]
